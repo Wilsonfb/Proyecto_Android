@@ -1,0 +1,128 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:padding="16dp">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Agregar Producto"
+            android:textSize="20sp"
+            android:layout_marginBottom="16dp"/>
+
+    <EditText
+            android:id="@+id/nombre_producto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nombre del Producto" />
+
+    <EditText
+            android:id="@+id/cantidad_producto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Cantidad"
+            android:inputType="number" />
+
+    <EditText
+            android:id="@+id/fecha_entrada"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Fecha de Entrada" />
+
+    <EditText
+            android:id="@+id/fecha_vencimiento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Fecha de Vencimiento" />
+
+    <EditText
+            android:id="@+id/proveedor_producto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Proveedor" />
+
+    <EditText
+            android:id="@+id/categoria_producto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Categoría" />
+
+    <Button
+            android:id="@+id/btn_agregar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Agregar Producto"
+            android:onClick="agregarProducto" />
+
+    <TextView
+            android:id="@+id/resultado_producto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@android:color/holo_green_dark"
+            android:layout_marginTop="16dp" />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ver Productos"
+            android:textSize="20sp"
+            android:layout_marginTop="16dp"/>
+
+    <Button
+            android:id="@+id/btn_ver_productos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ver Productos"
+            android:onClick="verProductos" />
+
+    <TextView
+            android:id="@+id/lista_productos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@android:color/holo_blue_dark"
+            android:layout_marginTop="16dp" />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Eliminar Producto por ID"
+            android:textSize="20sp"
+            android:layout_marginTop="16dp"/>
+
+    <EditText
+            android:id="@+id/id_producto_eliminar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ID del Producto a Eliminar" />
+
+    <Button
+            android:id="@+id/btn_eliminar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Eliminar Producto"
+            android:onClick="eliminarProducto" />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Actualizar Producto por ID"
+            android:textSize="20sp"
+            android:layout_marginTop="16dp"/>
+
+    <EditText
+            android:id="@+id/id_producto_actualizar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ID del Producto a Actualizar" />
+
+    <Button
+            android:id="@+id/btn_actualizar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Actualizar Producto"
+            android:onClick="actualizarProducto" />
+
+</LinearLayout>

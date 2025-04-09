@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:padding="16dp">
+
+    <EditText
+            android:id="@+id/nombre_categoria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ingrese el nombre de la categoría"
+            android:inputType="text" />
+
+    <Button
+            android:id="@+id/btn_agregar_categoria"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Agregar Categoría"
+            android:onClick="agregarCategoria" />
+
+    <TextView
+            android:id="@+id/resultado_categoria"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textSize="16sp"
+            android:textColor="@android:color/holo_green_dark" />
+
+    <Button
+            android:id="@+id/btn_ver_categorias"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ver Categorías"
+            android:onClick="verCategorias" />
+
+    <TextView
+            android:id="@+id/lista_categorias"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textSize="16sp"
+            android:textColor="@android:color/holo_blue_dark" />
+
+</LinearLayout>

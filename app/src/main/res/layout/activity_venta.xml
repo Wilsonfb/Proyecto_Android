@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:padding="16dp">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Realiza La Venta"
+            android:textSize="24sp"
+            android:layout_gravity="center"
+            android:paddingBottom="24dp"/>
+
+    <EditText
+            android:id="@+id/nombreProducto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Producto"
+            android:inputType="text"/>
+
+    <EditText
+            android:id="@+id/cantidad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Cantidad"
+            android:inputType="number"/>
+
+    <Button
+            android:id="@+id/boton_crear_venta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vender"
+            android:layout_gravity="center"
+            android:onClick="crearVenta"/>
+    <Button
+            android:id="@+id/btn_ver_ventas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Historial"
+            android:onClick="verVentas" />
+
+    <TextView
+            android:id="@+id/lista_ventas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp" />
+
+</LinearLayout>

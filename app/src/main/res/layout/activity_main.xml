@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:padding="16dp">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bienvenido a la Aplicación de la Gran Cosecha"
+            android:textSize="24sp"
+            android:layout_gravity="center"
+            android:paddingBottom="24dp"/>
+
+    <Button
+            android:id="@+id/boton_venta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Realizar Ventas"
+            android:layout_gravity="center"
+            android:onClick="irAVentas"/>
+
+    <Button
+            android:id="@+id/boton_historial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ver Historial"
+            android:layout_gravity="center"
+            android:onClick="irAHistorial"/>
+
+    <Button
+            android:id="@+id/boton_categoria"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Administrar Categorías"
+            android:layout_gravity="center"
+            android:onClick="irACategorias"/>
+
+    <Button
+            android:id="@+id/boton_administrar_productos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Administrar Productos"
+            android:layout_gravity="center"
+            android:onClick="irAAdministrarProductos"/>
+
+    <Button
+            android:id="@+id/boton_administrar_usuarios"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Administrar Usuarios"
+            android:layout_gravity="center"
+            android:onClick="irAAdministrarUsuarios"/>
+
+</LinearLayout>
