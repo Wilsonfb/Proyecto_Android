@@ -8,7 +8,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Agregar Producto"
-            android:textSize="20sp"
+            android:textSize="15sp"
+            android:layout_gravity="center"
             android:layout_marginBottom="16dp"/>
 
     <EditText
@@ -59,7 +60,7 @@
             android:id="@+id/resultado_producto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:textColor="@android:color/holo_green_dark"
             android:layout_marginTop="16dp" />
 
@@ -67,7 +68,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ver Productos"
-            android:textSize="20sp"
+            android:textSize="15sp"
+            android:layout_gravity="center"
             android:layout_marginTop="16dp"/>
 
     <Button
@@ -81,7 +83,7 @@
             android:id="@+id/lista_productos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:textColor="@android:color/holo_blue_dark"
             android:layout_marginTop="16dp" />
 
@@ -89,7 +91,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Eliminar Producto por ID"
-            android:textSize="20sp"
+            android:textSize="15sp"
+            android:layout_gravity="center"
             android:layout_marginTop="16dp"/>
 
     <EditText
@@ -109,7 +112,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Actualizar Producto por ID"
-            android:textSize="20sp"
+            android:textSize="15sp"
+            android:layout_gravity="center"
             android:layout_marginTop="16dp"/>
 
     <EditText
@@ -124,5 +128,13 @@
             android:layout_height="wrap_content"
             android:text="Actualizar Producto"
             android:onClick="actualizarProducto" />
+
+    <Button
+            android:id="@+id/btn_ir_a_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pagina Principal"
+            android:layout_marginTop="16dp"
+            android:onClick="irAMain"/>
 
 </LinearLayout>

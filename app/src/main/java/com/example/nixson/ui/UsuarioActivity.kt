@@ -1,7 +1,9 @@
 package com.example.nixson.ui
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -132,5 +134,10 @@ class UsuarioActivity : AppCompatActivity() {
         } else {
             textViewUsuarios.text = "No hay usuarios registrados."
         }
+    }
+
+    fun irAMain(v: View) {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
     }
 }

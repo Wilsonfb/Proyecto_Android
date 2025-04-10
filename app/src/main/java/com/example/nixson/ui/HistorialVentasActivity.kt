@@ -1,5 +1,6 @@
 package com.example.nixson.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,5 +39,10 @@ class HistorialVentasActivity : AppCompatActivity() {
 
     fun verVentas(v: View) {
         cargarVentas()
+    }
+
+    fun irAMain(v: View) {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
     }
 }

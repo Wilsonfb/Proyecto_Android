@@ -9,7 +9,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Historial De La Gran Cosecha"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:layout_gravity="center"
             android:paddingBottom="16dp"/>
 
@@ -19,6 +19,14 @@
             android:layout_height="wrap_content"
             android:text="Historial De Las Ventas"
             android:onClick="verVentas" />
+
+    <Button
+            android:id="@+id/btn_ir_a_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pagina Principal"
+            android:layout_marginTop="16dp"
+            android:onClick="irAMain"/>
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewVentas"

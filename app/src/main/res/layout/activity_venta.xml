@@ -9,7 +9,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Realiza La Venta"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:layout_gravity="center"
             android:paddingBottom="24dp"/>
 
@@ -27,19 +27,30 @@
             android:hint="Cantidad"
             android:inputType="number"/>
 
-    <Button
-            android:id="@+id/boton_crear_venta"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Vender"
-            android:layout_gravity="center"
-            android:onClick="crearVenta"/>
-    <Button
-            android:id="@+id/btn_ver_ventas"
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Historial"
-            android:onClick="verVentas" />
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp">
+
+        <Button
+                android:id="@+id/boton_crear_venta"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Vender"
+                android:onClick="crearVenta"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"/>
+
+        <Button
+                android:id="@+id/btn_ver_ventas"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Historial"
+                android:onClick="verVentas"
+                android:layout_weight="1"/>
+    </LinearLayout>
 
     <TextView
             android:id="@+id/lista_ventas"
@@ -47,5 +58,13 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:layout_marginTop="16dp" />
+
+    <Button
+            android:id="@+id/btn_ir_a_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pagina Principal"
+            android:layout_marginTop="16dp"
+            android:onClick="irAMain"/>
 
 </LinearLayout>

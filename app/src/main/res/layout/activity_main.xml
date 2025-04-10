@@ -9,48 +9,54 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bienvenido a la Aplicación de la Gran Cosecha"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:layout_gravity="center"
             android:paddingBottom="24dp"/>
 
-    <Button
-            android:id="@+id/boton_venta"
-            android:layout_width="wrap_content"
+    <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Realizar Ventas"
-            android:layout_gravity="center"
-            android:onClick="irAVentas"/>
+            android:orientation="vertical"
+            android:layout_gravity="center">
 
-    <Button
-            android:id="@+id/boton_historial"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ver Historial"
-            android:layout_gravity="center"
-            android:onClick="irAHistorial"/>
+        <Button
+                android:id="@+id/boton_venta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Realizar Ventas"
+                android:onClick="irAVentas"
+                android:layout_marginBottom="16dp"/>
 
-    <Button
-            android:id="@+id/boton_categoria"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Administrar Categorías"
-            android:layout_gravity="center"
-            android:onClick="irACategorias"/>
+        <Button
+                android:id="@+id/boton_historial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ver Historial"
+                android:onClick="irAHistorial"
+                android:layout_marginBottom="16dp"/>
 
-    <Button
-            android:id="@+id/boton_administrar_productos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Administrar Productos"
-            android:layout_gravity="center"
-            android:onClick="irAAdministrarProductos"/>
+        <Button
+                android:id="@+id/boton_categoria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Administrar Categorías"
+                android:onClick="irACategorias"
+                android:layout_marginBottom="16dp"/>
 
-    <Button
-            android:id="@+id/boton_administrar_usuarios"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Administrar Usuarios"
-            android:layout_gravity="center"
-            android:onClick="irAAdministrarUsuarios"/>
+        <Button
+                android:id="@+id/boton_administrar_productos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Administrar Productos"
+                android:onClick="irAAdministrarProductos"
+                android:layout_marginBottom="16dp"/>
+
+        <Button
+                android:id="@+id/boton_administrar_usuarios"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Administrar Usuarios"
+                android:onClick="irAAdministrarUsuarios"/>
+    </LinearLayout>
 
 </LinearLayout>

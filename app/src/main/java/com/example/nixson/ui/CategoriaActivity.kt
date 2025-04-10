@@ -1,5 +1,6 @@
 package com.example.nixson.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
@@ -42,5 +43,10 @@ class CategoriaActivity : AppCompatActivity() {
         } else {
             listaCategoriasTextView.text = "No hay categorías registradas."
         }
+    }
+
+    fun irAMain(v: View) {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
     }
 }
