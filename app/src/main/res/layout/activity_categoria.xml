@@ -44,13 +44,12 @@
                 android:layout_weight="1"
                 android:layout_marginEnd="8dp"/>
 
-        <Button
-                android:id="@+id/btn_ver_categorias"
-                android:layout_width="0dp"
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_obtener_categorias"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ver Categorías"
-                android:onClick="verCategorias"
-                android:layout_weight="1"/>
+                android:text="Obtener Categorías"
+                android:onClick="obtenerCategorias" />
     </LinearLayout>
 
     <TextView
@@ -59,7 +58,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:textSize="16sp"
-            android:textColor="@android:color/holo_blue_dark" />
+            android:textColor="@android:color/holo_blue_dark"
+            android:padding="8dp"
+            android:background="@android:color/background_light"
+            android:visibility="gone"/>
 
     <Button
             android:id="@+id/btn_ir_a_main"
