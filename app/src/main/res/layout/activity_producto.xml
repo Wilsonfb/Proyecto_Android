@@ -8,7 +8,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Agregar Producto"
-            android:textSize="15sp"
+            android:textSize="18sp"
             android:layout_gravity="center"
             android:layout_marginBottom="16dp"/>
 
@@ -68,7 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ver Productos"
-            android:textSize="15sp"
+            android:textSize="18sp"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"/>
 
@@ -91,7 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Eliminar Producto por ID"
-            android:textSize="15sp"
+            android:textSize="18sp"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"/>
 
@@ -112,7 +112,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Actualizar Producto por ID"
-            android:textSize="15sp"
+            android:textSize="18sp"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"/>
 

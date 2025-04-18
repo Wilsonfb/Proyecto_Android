@@ -31,7 +31,7 @@ class ProductoController {
     }
 
     fun buscarProductoPorId(id: Int): Producto? {
-        return productos.find { it.id == id }
+        return productos.find { it.getId() == id }
     }
 
     fun eliminarProducto(id: Int): Boolean {
@@ -44,7 +44,15 @@ class ProductoController {
         }
     }
 
-    fun actualizarProducto(id: Int, nombre: String, cantidad: Int, fechaEntrada: String, fechaVencimiento: String, proveedor: String, categoria: String): Boolean {
+    fun actualizarProducto(
+        id: Int,
+        nombre: String,
+        cantidad: Int,
+        fechaEntrada: String,
+        fechaVencimiento: String,
+        proveedor: String,
+        categoria: String
+    ): Boolean {
         val producto = buscarProductoPorId(id)
         return if (producto != null) {
             val updatedProducto = Producto(id, nombre, cantidad, fechaEntrada, fechaVencimiento, proveedor, categoria)

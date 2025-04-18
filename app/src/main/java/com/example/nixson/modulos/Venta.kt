@@ -1,7 +1,18 @@
 package com.example.nixson.modulos
 
 data class Venta(
-    val id: Int,
-    val producto: String,
-    val cantidad: Int
-)
+    private var id: Int,
+    private var producto: String ,
+    private var cantidad: Int
+) {
+
+    fun getId(): Int {
+        return id
+    }
+    fun getProducto(): String {
+        return producto
+    }
+    fun getCantidad(): Int {
+        return cantidad
+    }
+}

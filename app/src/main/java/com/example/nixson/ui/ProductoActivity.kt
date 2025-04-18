@@ -6,12 +6,15 @@ import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.nixson.controller.ProductoController
-import com.example.nixson.modulos.Producto
 import com.example.nixson.R
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import com.example.nixson.api.RetrofitClient
+import com.example.nixson.modulos.Producto
+
 
 class ProductoActivity : AppCompatActivity() {
-    private val productoController = ProductoController()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +32,7 @@ class ProductoActivity : AppCompatActivity() {
 
         if (!nombre.text.isNullOrEmpty() && !cantidad.text.isNullOrEmpty() && !proveedor.text.isNullOrEmpty()) {
             val nuevoProducto = Producto(
-                id = productoController.obtenerProductos().size + 1,
+                id = 0,
                 nombre = nombre.text.toString(),
                 cantidad = cantidad.text.toString().toInt(),
                 fechaEntrada = fechaEntrada.text.toString(),
@@ -38,23 +41,26 @@ class ProductoActivity : AppCompatActivity() {
                 categoria = categoria.text.toString()
             )
 
-            productoController.agregarProducto(
-                nombre = nuevoProducto.nombre,
-                cantidad = nuevoProducto.cantidad,
-                fechaEntrada = nuevoProducto.fechaEntrada,
-                fechaVencimiento = nuevoProducto.fechaVencimiento,
-                proveedor = nuevoProducto.proveedor,
-                categoria = nuevoProducto.categoria
-            )
+            RetrofitClient.instance.agregarProducto(nuevoProducto).enqueue(object : Callback<Producto> {
+                override fun onResponse(call: Call<Producto>, response: Response<Producto>) {
+                    if (response.isSuccessful) {
+                        val producto = response.body()
+                        resultado.text = "Producto agregado: ${producto?.getNombre()}"
+                        nombre.text.clear()
+                        cantidad.text.clear()
+                        fechaEntrada.text.clear()
+                        fechaVencimiento.text.clear()
+                        proveedor.text.clear()
+                        categoria.text.clear()
+                    } else {
+                        resultado.text = "Error al agregar el producto."
+                    }
+                }
 
-            resultado.text = "Producto agregado: ${nuevoProducto.nombre}"
-
-            nombre.text.clear()
-            cantidad.text.clear()
-            fechaEntrada.text.clear()
-            fechaVencimiento.text.clear()
-            proveedor.text.clear()
-            categoria.text.clear()
+                override fun onFailure(call: Call<Producto>, t: Throwable) {
+                    resultado.text = "Error: ${t.message}"
+                }
+            })
         } else {
             resultado.text = "Por favor, completa todos los campos requeridos."
         }
@@ -63,16 +69,29 @@ class ProductoActivity : AppCompatActivity() {
     fun verProductos(v: View) {
         val listaProductosTextView = findViewById<TextView>(R.id.lista_productos)
 
-        val productos = productoController.obtenerProductos()
-
-        if (productos.isNotEmpty()) {
-            val listaDetalles = productos.joinToString(separator = "\n") {
-                "ID: ${it.id}, Nombre: ${it.nombre}, Cantidad: ${it.cantidad}, Fecha Vence: ${it.fechaVencimiento}"
+        RetrofitClient.instance.getProductos().enqueue(object : Callback<List<Producto>> {
+            override fun onResponse(call: Call<List<Producto>>, response: Response<List<Producto>>) {
+                if (response.isSuccessful) {
+                    val productos = response.body()
+                    if (productos != null && productos.isNotEmpty()) {
+                        val listaDetalles = productos.joinToString(separator = "\n") {
+                            "ID: ${it.getId()}, Nombre: ${it.getNombre()}, Cantidad: ${it.getCantidad()}, " +
+                                    "Fecha Entrada: ${it.getFechaEntrada()}, Fecha Vencimiento: ${it.getFechaVencimiento()}, " +
+                                    "Proveedor: ${it.getProveedor()}, Categoría: ${it.getCategoria()}"
+                        }
+                        listaProductosTextView.text = "Productos:\n$listaDetalles"
+                    } else {
+                        listaProductosTextView.text = "No hay productos registrados."
+                    }
+                } else {
+                    listaProductosTextView.text = "Error al cargar los productos."
+                }
             }
-            listaProductosTextView.text = "Productos:\n$listaDetalles"
-        } else {
-            listaProductosTextView.text = "No hay productos registrados."
-        }
+
+            override fun onFailure(call: Call<List<Producto>>, t: Throwable) {
+                listaProductosTextView.text = "Error: ${t.message}"
+            }
+        })
     }
 
     fun eliminarProducto(v: View) {
@@ -81,11 +100,21 @@ class ProductoActivity : AppCompatActivity() {
 
         if (!idInput.text.isNullOrEmpty()) {
             val id = idInput.text.toString().toInt()
-            if (productoController.eliminarProducto(id)) {
-                resultado.text = "Producto con ID $id eliminado."
-            } else {
-                resultado.text = "Producto con ID $id no encontrado."
-            }
+
+            RetrofitClient.instance.eliminarProducto(id).enqueue(object : Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    if (response.isSuccessful) {
+                        resultado.text = "Producto con ID $id eliminado."
+                    } else {
+                        resultado.text = "Producto con ID $id no encontrado."
+                    }
+                }
+
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    resultado.text = "Error: ${t.message}"
+                }
+            })
+
             idInput.text.clear()
         } else {
             resultado.text = "Por favor, ingresa un ID de producto."
@@ -104,7 +133,8 @@ class ProductoActivity : AppCompatActivity() {
 
         if (!idInput.text.isNullOrEmpty() && !nombre.text.isNullOrEmpty() && !cantidad.text.isNullOrEmpty() && !proveedor.text.isNullOrEmpty()) {
             val id = idInput.text.toString().toInt()
-            val actualizado = productoController.actualizarProducto(
+
+            val productoActualizado = Producto(
                 id = id,
                 nombre = nombre.text.toString(),
                 cantidad = cantidad.text.toString().toInt(),
@@ -114,11 +144,19 @@ class ProductoActivity : AppCompatActivity() {
                 categoria = categoria.text.toString()
             )
 
-            if (actualizado) {
-                resultado.text = "Producto con ID $id actualizado."
-            } else {
-                resultado.text = "Producto con ID $id no encontrado."
-            }
+            RetrofitClient.instance.actualizarProducto(id, productoActualizado).enqueue(object : Callback<Producto> {
+                override fun onResponse(call: Call<Producto>, response: Response<Producto>) {
+                    if (response.isSuccessful) {
+                        resultado.text = "Producto con ID $id actualizado."
+                    } else {
+                        resultado.text = "Producto con ID $id no encontrado."
+                    }
+                }
+
+                override fun onFailure(call: Call<Producto>, t: Throwable) {
+                    resultado.text = "Error: ${t.message}"
+                }
+            })
 
             idInput.text.clear()
             nombre.text.clear()
