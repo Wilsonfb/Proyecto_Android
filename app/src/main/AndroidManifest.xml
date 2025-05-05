@@ -28,9 +28,6 @@
                 android:name=".ui.VentaActivity"
                 android:exported="true"/>
 
-        <activity
-                android:name=".ui.HistorialVentasActivity"
-                android:exported="true" />
 
         <activity
                 android:name=".ui.CategoriaActivity"

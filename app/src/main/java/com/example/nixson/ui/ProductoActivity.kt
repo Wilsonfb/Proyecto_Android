@@ -13,7 +13,6 @@ import retrofit2.Response
 import com.example.nixson.api.RetrofitClient
 import com.example.nixson.modulos.Producto
 
-
 class ProductoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

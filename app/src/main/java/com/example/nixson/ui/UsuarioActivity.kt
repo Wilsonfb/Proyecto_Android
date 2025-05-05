@@ -1,138 +1,191 @@
 package com.example.nixson.ui
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.nixson.controller.UsuarioController
 import com.example.nixson.modulos.Usuario
-import com.example.nixson.modulos.Rol
 import com.example.nixson.R
-import android.widget.Spinner
-import android.widget.ArrayAdapter
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import com.example.nixson.api.RetrofitClient
 
 class UsuarioActivity : AppCompatActivity() {
-    private val usuarioController = UsuarioController()
-    private lateinit var editTextNombres: EditText
-    private lateinit var editTextApellidos: EditText
-    private lateinit var editTextEmail: EditText
-    private lateinit var editTextTelefono: EditText
-    private lateinit var editTextDireccion: EditText
-    private lateinit var editTextIdEliminar: EditText
-    private lateinit var buttonAgregar: Button
-    private lateinit var buttonEliminar: Button
-    private lateinit var textViewUsuarios: TextView
-    private lateinit var spinnerRol: Spinner
 
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_usuario)
-
-        editTextNombres = findViewById(R.id.editTextNombres)
-        editTextApellidos = findViewById(R.id.editTextApellidos)
-        editTextEmail = findViewById(R.id.editTextEmail)
-        editTextTelefono = findViewById(R.id.editTextTelefono)
-        editTextDireccion = findViewById(R.id.editTextDireccion)
-        editTextIdEliminar = findViewById(R.id.editTextIdEliminar)
-        buttonAgregar = findViewById(R.id.buttonAgregar)
-        buttonEliminar = findViewById(R.id.buttonEliminar)
-        textViewUsuarios = findViewById(R.id.textViewUsuarios)
-        spinnerRol = findViewById(R.id.spinnerRol)
-
-        val roles = Rol.values().map { it.name }
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, roles)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerRol.adapter = adapter
-
-        buttonAgregar.setOnClickListener { agregarUsuario() }
-        buttonEliminar.setOnClickListener { eliminarUsuario() }
-
-        agregarUsuarioAdmin()
-
-        verUsuarios()
     }
 
-    private fun agregarUsuarioAdmin() {
-        val adminUsuario = Usuario(
-            id = 1,
-            nombres = "Nixson",
-            apellidos = "Admin",
-            email = "nixson.admin@example.com",
-            telefono = 1234567890,
-            direccion = "Admin Street 123",
-            rol = Rol.ADMIN
-        )
+    fun agregarUsuario(v: View) {
+        val nombres = findViewById<EditText>(R.id.editTextNombres)
+        val apellidos = findViewById<EditText>(R.id.editTextApellidos)
+        val email = findViewById<EditText>(R.id.editTextEmail)
+        val telefono = findViewById<EditText>(R.id.editTextTelefono)
+        val direccion = findViewById<EditText>(R.id.editTextDireccion)
+        val rolEditText = findViewById<EditText>(R.id.editTextRol)
+        val resultado = findViewById<TextView>(R.id.textViewUsuarios)
 
-        usuarioController.agregarUsuario(adminUsuario)
-    }
+        val rolTexto = rolEditText.text.toString().trim()
 
-    private fun agregarUsuario() {
-        val nombres = editTextNombres.text.toString()
-        val apellidos = editTextApellidos.text.toString()
-        val email = editTextEmail.text.toString()
-        val telefono = editTextTelefono.text.toString().toIntOrNull() ?: 0
-        val direccion = editTextDireccion.text.toString()
-        val rolSeleccionado = spinnerRol.selectedItem.toString()
+        if (!nombres.text.isNullOrEmpty() && !apellidos.text.isNullOrEmpty() && !email.text.isNullOrEmpty() &&
+            !telefono.text.isNullOrEmpty() && !direccion.text.isNullOrEmpty() && rolTexto.isNotEmpty()) {
 
-        if (nombres.isEmpty() || apellidos.isEmpty() || email.isEmpty() || telefono == 0 || direccion.isEmpty()) {
-            Toast.makeText(this, "Por favor, completa todos los campos.", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        val nuevoUsuario = Usuario(
-            id = usuarioController.obtenerTodosLosUsuarios().size + 1,
-            nombres = nombres,
-            apellidos = apellidos,
-            email = email,
-            telefono = telefono,
-            direccion = direccion,
-            rol = Rol.valueOf(rolSeleccionado)
-        )
-
-        usuarioController.agregarUsuario(nuevoUsuario)
-
-        editTextNombres.text.clear()
-        editTextApellidos.text.clear()
-        editTextEmail.text.clear()
-        editTextTelefono.text.clear()
-        editTextDireccion.text.clear()
-
-        verUsuarios()
-    }
-
-    private fun eliminarUsuario() {
-        val id = editTextIdEliminar.text.toString().toIntOrNull()
-        if (id == null) {
-            Toast.makeText(this, "Por favor, ingresa un ID válido.", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        val eliminado = usuarioController.eliminarUsuario(id)
-        if (eliminado) {
-            Toast.makeText(this, "Usuario eliminado con éxito.", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(this, "No se encontró un usuario con ese ID.", Toast.LENGTH_SHORT).show()
-        }
-
-        editTextIdEliminar.text.clear()
-        verUsuarios()
-    }
-
-    fun verUsuarios() {
-        val usuarios = usuarioController.obtenerTodosLosUsuarios()
-        if (usuarios.isNotEmpty()) {
-            val listaDetalles = usuarios.joinToString(separator = "\n") {
-                "ID: ${it.id}, Nombres: ${it.nombres} ${it.apellidos}, Email: ${it.email}, Teléfono: ${it.telefono}, Dirección: ${it.direccion}, Rol: ${it.rol}"
+            val rolId = try {
+                rolTexto.toInt()
+            } catch (e: NumberFormatException) {
+                resultado.text = "El rol debe ser un número (1 para ADMIN, 2 para EMPLEADO)."
+                return
             }
-            textViewUsuarios.text = "Usuarios Registrados:\n$listaDetalles"
+
+            val nuevoUsuario = Usuario(
+                id = 0,
+                nombres = nombres.text.toString(),
+                apellidos = apellidos.text.toString(),
+                email = email.text.toString(),
+                telefono = telefono.text.toString().toInt(),
+                direccion = direccion.text.toString(),
+                rolId = rolId
+            )
+
+            RetrofitClient.instance.agregarUsuario(nuevoUsuario).enqueue(object : Callback<Usuario> {
+                override fun onResponse(call: Call<Usuario>, response: Response<Usuario>) {
+                    if (response.isSuccessful) {
+                        val usuario = response.body()
+                        resultado.text = "Usuario agregado: ${usuario?.getNombres()} ${usuario?.getApellidos()}"
+                        nombres.text.clear()
+                        apellidos.text.clear()
+                        email.text.clear()
+                        telefono.text.clear()
+                        direccion.text.clear()
+                        rolEditText.text.clear()
+                    } else {
+                        resultado.text = "Error al agregar el usuario. Verifica los datos."
+                    }
+                }
+
+                override fun onFailure(call: Call<Usuario>, t: Throwable) {
+                    resultado.text = "Error: ${t.message}"
+                }
+            })
         } else {
-            textViewUsuarios.text = "No hay usuarios registrados."
+            resultado.text = "Por favor, completa todos los campos requeridos."
+        }
+    }
+
+    fun verUsuarios(v: View) {
+        val listaUsuariosTextView = findViewById<TextView>(R.id.textViewUsuarios)
+
+        RetrofitClient.instance.getUsuarios().enqueue(object : Callback<List<Usuario>> {
+            override fun onResponse(call: Call<List<Usuario>>, response: Response<List<Usuario>>) {
+                if (response.isSuccessful) {
+                    val usuarios = response.body()
+                    if (usuarios != null && usuarios.isNotEmpty()) {
+                        val listaDetalles = usuarios.joinToString(separator = "\n") {
+                            "ID: ${it.getId()}, Nombres: ${it.getNombres()} ${it.getApellidos()}, Email: ${it.getEmail()}, " +
+                                    "Teléfono: ${it.getTelefono()}, Dirección: ${it.getDireccion()}, Rol ID: ${it.rolId}"
+                        }
+                        listaUsuariosTextView.text = "Usuarios:\n$listaDetalles"
+                    } else {
+                        listaUsuariosTextView.text = "No hay usuarios registrados."
+                    }
+                } else {
+                    listaUsuariosTextView.text = "Error al cargar los usuarios."
+                }
+            }
+
+            override fun onFailure(call: Call<List<Usuario>>, t: Throwable) {
+                listaUsuariosTextView.text = "Error: ${t.message}"
+            }
+        })
+    }
+
+    fun eliminarUsuario(v: View) {
+        val idInput = findViewById<EditText>(R.id.editTextIdEliminar)
+        val resultado = findViewById<TextView>(R.id.textViewUsuarios)
+
+        if (!idInput.text.isNullOrEmpty()) {
+            val id = idInput.text.toString().toInt()
+
+            RetrofitClient.instance.eliminarUsuario(id).enqueue(object : Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    if (response.isSuccessful) {
+                        resultado.text = "Usuario con ID $id eliminado."
+                    } else {
+                        resultado.text = "Usuario con ID $id no encontrado."
+                    }
+                }
+
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    resultado.text = "Error: ${t.message}"
+                }
+            })
+
+            idInput.text.clear()
+        } else {
+            resultado.text = "Por favor, ingresa un ID de usuario."
+        }
+    }
+
+    fun actualizarUsuario(v: View) {
+        val idInput = findViewById<EditText>(R.id.editTextIdActualizar)
+        val nombres = findViewById<EditText>(R.id.editTextNombres)
+        val apellidos = findViewById<EditText>(R.id.editTextApellidos)
+        val email = findViewById<EditText>(R.id.editTextEmail)
+        val telefono = findViewById<EditText>(R.id.editTextTelefono)
+        val direccion = findViewById<EditText>(R.id.editTextDireccion)
+        val rolEditText = findViewById<EditText>(R.id.editTextRol)
+        val resultado = findViewById<TextView>(R.id.textViewUsuarios)
+
+        val rolTexto = rolEditText.text.toString().trim()
+
+        if (!idInput.text.isNullOrEmpty() && !nombres.text.isNullOrEmpty() && !apellidos.text.isNullOrEmpty() &&
+            !email.text.isNullOrEmpty() && !telefono.text.isNullOrEmpty() && !direccion.text.isNullOrEmpty()) {
+
+            val id = idInput.text.toString().toInt()
+
+            val rolId = try {
+                rolTexto.toInt()
+            } catch (e: NumberFormatException) {
+                resultado.text = "El rol debe ser un número (1 para ADMIN, 2 para EMPLEADO)."
+                return
+            }
+
+            val usuarioActualizado = Usuario(
+                id = id,
+                nombres = nombres.text.toString(),
+                apellidos = apellidos.text.toString(),
+                email = email.text.toString(),
+                telefono = telefono.text.toString().toInt(),
+                direccion = direccion.text.toString(),
+                rolId = rolId
+            )
+
+            RetrofitClient.instance.actualizarUsuario(id, usuarioActualizado).enqueue(object : Callback<Usuario> {
+                override fun onResponse(call: Call<Usuario>, response: Response<Usuario>) {
+                    if (response.isSuccessful) {
+                        resultado.text = "Usuario con ID $id actualizado."
+                    } else {
+                        resultado.text = "Usuario con ID $id no encontrado."
+                    }
+                }
+
+                override fun onFailure(call: Call<Usuario>, t: Throwable) {
+                    resultado.text = "Error: ${t.message}"
+                }
+            })
+
+            idInput.text.clear()
+            nombres.text.clear()
+            apellidos.text.clear()
+            email.text.clear()
+            telefono.text.clear()
+            direccion.text.clear()
+        } else {
+            resultado.text = "Por favor, completa todos los campos requeridos."
         }
     }
 

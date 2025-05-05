@@ -1,97 +1,141 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:padding="16dp">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Agregar Usuario"
-            android:textSize="20sp"
-            android:layout_gravity="center"
-            android:paddingBottom="16dp"/>
-
-    <EditText
-            android:id="@+id/editTextNombres"
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nombres"/>
+            android:orientation="vertical"
+            android:padding="16dp">
 
-    <EditText
-            android:id="@+id/editTextApellidos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Apellidos"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Agregar Usuario"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp" />
 
-    <EditText
-            android:id="@+id/editTextEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Email"/>
+        <EditText
+                android:id="@+id/editTextNombres"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombres" />
 
-    <EditText
-            android:id="@+id/editTextTelefono"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Teléfono"
-            android:inputType="phone"/>
+        <EditText
+                android:id="@+id/editTextApellidos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Apellidos" />
 
-    <EditText
-            android:id="@+id/editTextDireccion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Dirección"/>
+        <EditText
+                android:id="@+id/editTextEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                android:inputType="textEmailAddress" />
 
-    <Spinner
-            android:id="@+id/spinnerRol"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+        <EditText
+                android:id="@+id/editTextTelefono"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Teléfono"
+                android:inputType="phone" />
 
-    <Button
-            android:id="@+id/buttonAgregar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Agregar Usuario"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"/>
+        <EditText
+                android:id="@+id/editTextDireccion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Dirección" />
 
-    <EditText
-            android:id="@+id/editTextIdEliminar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="ID del Usuario a Eliminar"/>
+        <EditText
+                android:id="@+id/editTextRol"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Rol ID (1 = ADMIN, 2 = EMPLEADO)"
+                android:inputType="number" />
 
-    <Button
-            android:id="@+id/buttonEliminar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Eliminar Usuario"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"/>
+        <Button
+                android:id="@+id/btn_agregar_usuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Agregar Usuario"
+                android:onClick="agregarUsuario" />
 
-    <TextView
-            android:id="@+id/textViewUsuarios"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Usuarios Registrados"
-            android:textSize="16sp"
-            android:layout_marginTop="16dp"/>
+        <TextView
+                android:id="@+id/textViewUsuarios"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="@android:color/holo_blue_dark"
+                android:layout_marginTop="16dp" />
 
-    <TextView
-            android:id="@+id/lista_usuarios"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textSize="16sp"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ver Usuarios"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp" />
 
-    <Button
-            android:id="@+id/btn_ir_a_main"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Pagina Principal"
-            android:layout_marginTop="16dp"
-            android:onClick="irAMain"/>
+        <Button
+                android:id="@+id/btn_ver_usuarios"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ver Usuarios"
+                android:onClick="verUsuarios" />
 
-</LinearLayout>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Eliminar Usuario por ID"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp" />
+
+        <EditText
+                android:id="@+id/editTextIdEliminar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="ID del Usuario a Eliminar"
+                android:inputType="number" />
+
+        <Button
+                android:id="@+id/btn_eliminar_usuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Eliminar Usuario"
+                android:onClick="eliminarUsuario" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Actualizar Usuario por ID"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp" />
+
+        <EditText
+                android:id="@+id/editTextIdActualizar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="ID del Usuario a Actualizar"
+                android:inputType="number" />
+
+        <Button
+                android:id="@+id/btn_actualizar_usuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Actualizar Usuario"
+                android:onClick="actualizarUsuario" />
+
+        <Button
+                android:id="@+id/btn_ir_a_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Página Principal"
+                android:layout_marginTop="16dp"
+                android:onClick="irAMain" />
+
+    </LinearLayout>
+</ScrollView>

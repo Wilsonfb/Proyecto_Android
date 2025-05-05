@@ -3,6 +3,7 @@ package com.example.nixson.api
 import com.example.nixson.modulos.Categoria
 import com.example.nixson.modulos.Venta
 import com.example.nixson.modulos.Producto
+import com.example.nixson.modulos.Usuario
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -36,4 +37,16 @@ interface ApiService {
 
     @PUT("Producto/{id}")
     fun actualizarProducto(@Path("id") id: Int, @Body producto: Producto): Call<Producto>
+
+    @GET("Usuario")
+    fun getUsuarios(): Call<List<Usuario>>
+
+    @POST("Usuario")
+    fun agregarUsuario(@Body usuario: Usuario): Call<Usuario>
+
+    @DELETE("Usuario/{id}")
+    fun eliminarUsuario(@Path("id") id: Int): Call<Void>
+
+    @PUT("Usuario/{id}")
+    fun actualizarUsuario(@Path("id") id: Int, @Body usuario: Usuario): Call<Usuario>
 }
